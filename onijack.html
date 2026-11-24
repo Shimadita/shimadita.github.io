@@ -533,6 +533,8 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
 }
 .rules code { font-family: var(--font-display); color: var(--red-bright); font-weight: 700; }
 .scroll-hint { display: none; }
+.boss.locked { margin-top: 16px; border-style: dashed; background: repeating-linear-gradient(135deg, var(--surface) 0 14px, #141418 14px 28px); }
+.boss.locked h4 { margin-bottom: 8px; }
 
 </style>
 </head>
@@ -611,7 +613,7 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
           <li><span data-es="Escribí el GDD actualizado">Wrote the updated Game Design Document</span>
             <em data-es="Progresión por etapas, jefes, rondas malditas, economía, objetos, IA, briefs de VFX y logros.">Stage progression, bosses, cursed rounds, economy, items, AI behaviour, VFX briefs and achievements.</em></li>
           <li><span data-es="Diseñé todos los objetos y sus interacciones">Designed every item and its interactions</span>
-            <em data-es="18 objetos entre exclusivos, compartidos y malditos, con hasta 3 niveles de mejora.">18 items — player-only, shared and cursed — with up to 3 upgrade levels.</em></li>
+            <em data-es="16 objetos entre exclusivos del jugador y compartidos, con hasta 3 niveles de mejora.">16 items — player-only and shared — with up to 3 upgrade levels.</em></li>
           <li><span data-es="Equilibré todas las fases de la partida">Balanced every stage of the run</span>
             <em data-es="Curva de dificultad, recompensas, precios, probabilidades y umbrales de decisión de la IA.">Difficulty curve, rewards, prices, probabilities and the AI's decision thresholds.</em></li>
         </ul>
@@ -631,7 +633,7 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
           <div class="tl"><small data-es="Ronda">Round</small>2</div>
           <div class="tl"><small data-es="Ronda">Round</small>3</div>
           <div class="tl"><small data-es="Ronda">Round</small>4</div>
-          <div class="tl shop"><small data-es="Opcional">Optional</small><span data-es="Tienda">Shop</span></div>
+          <div class="tl shop"><small data-es="Siempre">Always</small><span data-es="Tienda">Shop</span></div>
           <div class="tl boss"><small data-es="Ronda 5">Round 5</small><span data-es="Jefe">Boss</span></div>
         </div>
         <ul class="rules">
@@ -649,11 +651,11 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
         </div>
         <p data-es="Cada ronda maldita aplica una regla especial:">Each cursed round applies a special rule:</p>
         <ul class="rules">
-          <li data-es="Tu primera carta queda <strong>oculta</strong>.">Your first card is <strong>hidden</strong>.</li>
+          <li data-es="<strong>Mano ciega:</strong> tu primera carta queda oculta."><strong>Blind Hand:</strong> your first card is hidden.</li>
           <li data-es="<strong>Caos total:</strong> ambos descartan todos sus objetos y roban 4 nuevos.">
             <strong>Total chaos:</strong> both sides discard all their items and draw 4 new ones.</li>
-          <li data-es="Ambos roban <strong>2 cartas</strong> en lugar de 1.">Both sides draw <strong>2 cards</strong> instead of 1.</li>
-          <li data-es="Si usas un objeto, <strong>ya no puedes robar más cartas</strong>.">If you use an item, <strong>you can't draw any more cards</strong>.</li>
+          <li data-es="<strong>Codicia:</strong> ambos roban 2 cartas en lugar de 1."><strong>Greed:</strong> both sides draw 2 cards instead of 1.</li>
+          <li data-es="<strong>Pacto sellado:</strong> si usas un objeto, ya no puedes robar más cartas."><strong>Sealed Pact:</strong> if you use an item, you can't draw any more cards.</li>
         </ul>
         <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: run structure + cursed rounds --></div>
       </div>
@@ -687,10 +689,15 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
                 <strong>Domain Expansion:</strong> he plays normal cards while yours are <strong>cut</strong>: your smallest card is destroyed and another random one is burned.</li>
               <li data-es="<strong>Avisado:</strong> la carta que va a cortar brilla con un aura roja y la que va a quemar se marca con fuego.">
                 <strong>Telegraphed:</strong> the card about to be cut glows with a red aura, and the one to be burned is marked with fire.</li>
-              <li data-es="<strong>Sin red de seguridad:</strong> no te deja usar el Onigiri que cura vida, el Reloj Wadokei, la Bendición Sakura ni el Parry.">
-                <strong>No safety net:</strong> you can't use the life-restoring Onigiri, the Wadokei Clock, the Sakura Blessing or the Parry.</li>
+              <li data-es="<strong>Sin red de seguridad:</strong> destruye el Onigiri que cura vida, el Reloj Wadokei, la Bendición Sakura y el Parry <strong>antes de que hagan efecto</strong>.">
+                <strong>No safety net:</strong> he destroys the life-restoring Onigiri, the Wadokei Clock, the Sakura Blessing and the Parry <strong>before they can take effect</strong>.</li>
             </ul>
           </div>
+        </div>
+        <div class="boss locked" data-kanji="？">
+          <small data-es="Por revelar">Still under wraps</small>
+          <h4 data-es="3 jefes más">3 more bosses</h4>
+          <p class="muted" style="margin:0" data-es="Hay otros 3 jefes que se revelarán con el lanzamiento del juego.">There are 3 more bosses — they'll be revealed when the game launches.</p>
         </div>
         <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: bosses --></div>
       </div>
@@ -700,8 +707,8 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
     <div class="case reveal">
       <div class="case-label"><div class="num">05</div><h2 data-es="Economía y tienda">Economy &amp; shop</h2></div>
       <div class="case-body">
-        <p data-es="Después de la ronda 4 de cada etapa, antes del jefe, puedes entrar en la <strong>sala del vendedor ambulante</strong>: una habitación con 5 almohadones donde comprar mejoras para objetos aleatorios.">
-          After round 4 of every stage, before the boss, you can enter the <strong>wandering merchant's room</strong>: a room with 5 cushions where you buy upgrades for random items.</p>
+        <p data-es="Después de la ronda 4 de cada etapa, antes del jefe, siempre llegas a la <strong>sala del vendedor ambulante</strong>: una habitación con 5 almohadones donde comprar mejoras para objetos aleatorios.">
+          After round 4 of every stage, before the boss, you always reach the <strong>wandering merchant's room</strong>: a room with 5 cushions where you buy upgrades for random items.</p>
         <div class="tables">
           <table class="dtable">
             <thead><tr><th data-es="Resultado de la ronda">Round outcome</th><th data-es="Recompensa">Reward</th></tr></thead>
@@ -728,12 +735,22 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
     <div class="case reveal">
       <div class="case-label"><div class="num">06</div><h2 data-es="Objetos">Items</h2></div>
       <div class="case-body">
-        <p data-es="18 objetos en tres familias: <strong>exclusivos del jugador</strong>, <strong>compartidos</strong> (el oni también los usa) y <strong>malditos</strong> (pasivos). Cada uno tiene hasta 3 niveles de mejora. Una selección:">
-          18 items in three families: <strong>player-only</strong>, <strong>shared</strong> (the oni uses them too) and <strong>cursed</strong> (passives). Each has up to 3 upgrade levels. A selection:</p>
+        <p data-es="16 objetos en dos familias: <strong>exclusivos del jugador</strong> y <strong>compartidos</strong> (el oni también los usa). La mayoría tiene hasta 3 niveles de mejora.">
+          16 items in two families: <strong>player-only</strong> and <strong>shared</strong> (the oni uses them too). Most have up to 3 upgrade levels.</p>
         <div class="items">
           <div class="item">
+            <div class="item-head"><h4>Parry</h4><span class="type" data-es="Jugador">Player</span></div>
+            <p data-es="Evita que pierdas vida en la ronda actual.">Stops you losing a life this round.</p>
+            <div class="lv" data-es="<b>Nv1</b> dura dos rondas · <b>Nv2</b> si no te defiende de un ataque, lo recuperas"><b>Lv1</b> lasts two rounds · <b>Lv2</b> if it doesn't block an attack, you get it back</div>
+          </div>
+          <div class="item">
+            <div class="item-head"><h4>Onigiri</h4><span class="type" data-es="Jugador">Player</span></div>
+            <p data-es="Te cura una vida.">Restores one life.</p>
+            <div class="lv" data-es="<b>Nv1</b> te cura toda la vida"><b>Lv1</b> restores all your lives</div>
+          </div>
+          <div class="item">
             <div class="item-head"><h4><span data-es="Reloj Wadokei">Wadokei Clock</span><span class="rework">REWORK</span></h4><span class="type" data-es="Jugador">Player</span></div>
-            <p data-es="Solo se activa cuando te pasas: reinicia la ronda desde cero. Más frecuente en la tienda, pero con su porcentaje oculto. No se puede usar contra el Verdugo.">Only triggers when you bust: restarts the round from zero. More common in the shop, but with its percentage hidden. Can't be used against the Executioner.</p>
+            <p data-es="Solo se activa cuando te pasas: reinicia la ronda desde cero. Más frecuente en la tienda, pero con su porcentaje oculto.">Only triggers when you bust: restarts the round from zero. More common in the shop, but with its percentage hidden.</p>
             <div class="lv" data-es="<b>Nv1</b> 20% de no gastarse · <b>Nv3</b> 50% de no gastarse"><b>Lv1</b> 20% chance not to be consumed · <b>Lv3</b> 50%</div>
           </div>
           <div class="item">
@@ -752,14 +769,42 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
             <div class="lv" data-es="<b>Nv1</b> elige entre 3 · <b>Nv3</b> elige cualquier carta de la baraja"><b>Lv1</b> pick from 3 · <b>Lv3</b> pick any card in the deck</div>
           </div>
           <div class="item">
+            <div class="item-head"><h4 data-es="Pergamino de Anulación">Scroll of Nullification</h4><span class="type" data-es="Jugador">Player</span></div>
+            <p data-es="Te deja ver la expresión del oni durante una ronda.">Reveals the oni's expression for one round.</p>
+          </div>
+          <div class="item">
+            <div class="item-head"><h4 data-es="Bálsamo de Fuerza">Strength Balm</h4><span class="type shared" data-es="Compartido">Shared</span></div>
+            <p data-es="Suma +1, +2 o +3 a la puntuación de quien lo usa. Sale menos porque es situacional.">Adds +1, +2 or +3 to the user's score. Drops less often because it's situational.</p>
+            <div class="lv" data-es="<b>Nv1</b> eliges exactamente cuánto sumar (1, 2 o 3)"><b>Lv1</b> choose exactly how much to add (1, 2 or 3)</div>
+          </div>
+          <div class="item">
+            <div class="item-head"><h4 data-es="Bálsamo de Debilidad">Weakness Balm</h4><span class="type shared" data-es="Compartido">Shared</span></div>
+            <p data-es="Resta 1, 2 o 3 a la puntuación de quien lo usa.">Subtracts 1, 2 or 3 from the user's score.</p>
+            <div class="lv" data-es="<b>Nv1</b> eliges exactamente cuánto restar (1, 2 o 3)"><b>Lv1</b> choose exactly how much to subtract (1, 2 or 3)</div>
+          </div>
+          <div class="item">
             <div class="item-head"><h4 data-es="Báscula Trucada">Rigged Scale</h4><span class="type shared" data-es="Compartido">Shared</span></div>
             <p data-es="Cambia la puntuación para ganar a 27. Sale menos porque es situacional.">Changes the winning score to 27. Drops less often because it's situational.</p>
             <div class="lv" data-es="<b>Nv3</b> al activarse, ambos se plantan automáticamente"><b>Lv3</b> both sides auto-stand when it triggers</div>
           </div>
           <div class="item">
+            <div class="item-head"><h4>Bandana Shinobi</h4><span class="type shared" data-es="Compartido">Shared</span></div>
+            <p data-es="Cambia una de tus cartas por una del rival.">Swaps one of your cards for one of the opponent's.</p>
+          </div>
+          <div class="item">
             <div class="item-head"><h4 data-es="Abanico">Fan</h4><span class="type shared" data-es="Compartido">Shared</span></div>
             <p data-es="Obliga al rival a robar una carta, empujándola a su mano.">Forces the opponent to draw a card, blowing it into their hand.</p>
             <div class="lv" data-es="<b>Nv1</b> Muro de viento: el oni ya no puede tocar tu puntuación esa ronda · <b>Nv2</b> empuja 2 cartas"><b>Lv1</b> Wind Wall: the oni can't affect your score that round · <b>Lv2</b> pushes 2 cards</div>
+          </div>
+          <div class="item">
+            <div class="item-head"><h4 data-es="Dinamita">Dynamite</h4><span class="type shared" data-es="Compartido">Shared</span></div>
+            <p data-es="Destruye el último objeto que ha usado el rival.">Destroys the last item the opponent used.</p>
+            <div class="lv" data-es="<b>Nv1</b> destruye dos objetos · <b>Nv2</b> destruye todos los objetos, tuyos y del rival"><b>Lv1</b> destroys two items · <b>Lv2</b> destroys every item, yours and the opponent's</div>
+          </div>
+          <div class="item">
+            <div class="item-head"><h4 data-es="Maldición Oni">Oni Curse</h4><span class="type shared" data-es="Compartido">Shared</span></div>
+            <p data-es="Destruye tus objetos para añadir la carta más alta de la baraja a la mano del rival.">Destroys your own items to add the highest card in the deck to the opponent's hand.</p>
+            <div class="lv" data-es="<b>Nv3</b> ya no destruye tus objetos"><b>Lv3</b> no longer destroys your items</div>
           </div>
           <div class="item">
             <div class="item-head"><h4>Tanto "Mini Katana"</h4><span class="type shared" data-es="Compartido">Shared</span></div>
@@ -770,14 +815,6 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
             <div class="item-head"><h4 data-es="Cadenas de Supresión">Suppression Chains</h4><span class="type shared" data-es="Compartido">Shared</span></div>
             <p data-es="Bloquea todos los objetos del rival durante una ronda y anula la Bendición Sakura.">Locks all of the opponent's items for one round and disables the Sakura Blessing.</p>
             <div class="lv" data-es="<b>Nv3</b> dura 2 rondas"><b>Lv3</b> lasts 2 rounds</div>
-          </div>
-          <div class="item">
-            <div class="item-head"><h4 data-es="Baraja Trucada">Rigged Deck</h4><span class="type cursed" data-es="Maldito">Cursed</span></div>
-            <p data-es="Pasivo: solo puedes robar 3 veces, pero cada vez eliges entre 2 cartas.">Passive: you can only draw 3 times, but you choose between 2 cards each time.</p>
-          </div>
-          <div class="item">
-            <div class="item-head"><h4 data-es="Parry Oscuro">Dark Parry</h4><span class="type cursed" data-es="Maldito">Cursed</span></div>
-            <p data-es="Pasivo: ganar con la puntuación exacta te hace invulnerable la ronda siguiente.">Passive: winning with the exact score makes you invulnerable next round.</p>
           </div>
         </div>
         <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: items --></div>
@@ -811,7 +848,7 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
         <h3 data-es="Reglas justas">Fair rules</h3>
         <ul class="rules">
           <li data-es="Si ambos se pasan, <strong>pierde quien se haya pasado por más</strong>. En empate el oni no gana por defecto.">If both bust, <strong>whoever went further over loses</strong>. The oni doesn't win ties by default.</li>
-          <li data-es="Los objetos de salvación se pueden usar cuando alguien se pasa.">Saving items can be used when someone busts.</li>
+          <li data-es="Puedes <strong>usar objetos antes de plantarte aunque te hayas pasado</strong>, para tener la oportunidad de salvar la partida.">You can <strong>use items before standing even if you've already busted</strong>, giving you a chance to save the run.</li>
         </ul>
         <h3 data-es="Feedback y avisos">Feedback &amp; telegraphing</h3>
         <ul class="rules">
