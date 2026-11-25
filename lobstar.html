@@ -922,6 +922,46 @@ canvas.datablock { opacity: .75; filter: none; }
 .featured-body .tagline, .card-body .tagline, .p-hero .tagline { color: var(--text); }
 .item .type { color: var(--muted); border-color: var(--line-strong); }
 .item .type.shared { color: var(--text); border-color: var(--red); }
+/* show the whole OniJack key art instead of a zoomed crop */
+.featured-media { isolation: isolate; }
+.featured-media img.backdrop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(22px) brightness(.4) saturate(.8); transform: scale(1.15); }
+.featured-media img.fit { position: relative; object-fit: contain; width: 100%; height: 100%; padding: 36px; filter: contrast(1.05) brightness(.95); box-sizing: border-box; }
+.featured-media img.fit { image-rendering: auto; }
+.featured:hover .featured-media img.fit { transform: none; }
+.featured:hover .featured-media img.backdrop { filter: blur(22px) brightness(.45) saturate(.9); transform: scale(1.15); }
+
+/* ---------- v16: bilingual images, zoomable figures, jam → Steam ---------- */
+html[lang="es"] .only-en, html:not([lang="es"]) .only-es { display: none !important; }
+.fig-intro { margin-top: 26px; }
+figure.zoomable { margin: 18px 0 8px; cursor: zoom-in; border: 1px solid var(--line-strong); background: #0c0b0b; position: relative; }
+figure.zoomable img { width: 100%; height: auto; display: block; transition: opacity .2s; }
+figure.zoomable:hover { border-color: var(--red); }
+figure.zoomable:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; }
+figure.zoomable figcaption { position: absolute; right: 10px; bottom: 10px; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
+  background: rgba(12,11,11,.88); border: 1px solid var(--line-strong); color: var(--text); padding: 4px 10px; }
+figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-bright); }
+.zoom-ico { color: var(--red-bright); }
+
+.fromto { display: grid; grid-template-columns: 1fr auto 1.4fr; gap: 16px; align-items: stretch; margin-top: 8px; }
+.ft-col { padding: 18px 20px; border: 1px solid var(--line-strong); background: var(--surface); }
+.ft-col small { display: block; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.ft-col p { margin: 0 !important; color: var(--text) !important; font-size: 1rem !important; }
+.ft-col.now { border-color: var(--red); }
+.ft-col.now small { color: var(--red-bright); }
+.ft-arrow { align-self: center; color: var(--red-bright); font-size: 1.6rem; }
+@media (max-width: 760px) { .fromto { grid-template-columns: 1fr; } .ft-arrow { transform: rotate(90deg); justify-self: center; } }
+
+.lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(8,7,7,.96); display: flex; flex-direction: column; }
+.lightbox[hidden] { display: none; }
+.lb-stage { flex: 1; overflow: hidden; position: relative; cursor: grab; touch-action: none; }
+.lb-stage.dragging { cursor: grabbing; }
+.lb-stage img { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; user-select: none; -webkit-user-drag: none; }
+.lb-tools { position: absolute; top: 16px; right: 16px; display: flex; gap: 8px; }
+.lb-tools button { width: 44px; height: 44px; background: rgba(21,20,20,.95); border: 1px solid var(--line-strong); color: var(--text); font: inherit; font-size: 1.1rem; cursor: pointer; }
+.lb-tools button:hover, .lb-tools button:focus-visible { border-color: var(--red); color: var(--red-bright); outline: none; }
+.lb-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: .85rem; color: var(--muted); background: rgba(12,11,11,.85); padding: 4px 12px; border: 1px solid var(--line); white-space: nowrap; }
+@media (max-width: 760px) { .lb-hint { display: none; } }
+.why p strong { color: var(--red-bright) !important; }
 
 </style>
 </head>
@@ -1110,6 +1150,60 @@ document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new D
   blocks.forEach(draw);
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!calm) setInterval(() => { const cv = blocks[Math.floor(Math.random() * blocks.length)]; draw(cv); }, 1400);
+})();
+
+// ===== Zoomable images (lightbox with zoom + pan) =====
+(function () {
+  const box = document.getElementById("lightbox");
+  if (!box) return;
+  const stage = box.querySelector(".lb-stage"), img = stage.querySelector("img");
+  let scale = 1, fit = 1, x = 0, y = 0, drag = null, lastFocus = null;
+  const pointers = new Map(); let pinch = null;
+  function apply() { img.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
+  function fitImage() {
+    const W = stage.clientWidth, H = stage.clientHeight, w = img.naturalWidth, h = img.naturalHeight;
+    fit = Math.min(W / w, H / h) * 0.96; scale = fit; x = (W - w * scale) / 2; y = (H - h * scale) / 2; apply();
+  }
+  function zoomAt(factor, cx, cy) {
+    const ns = Math.min(Math.max(scale * factor, fit * 0.8), fit * 8);
+    x = cx - (cx - x) * (ns / scale); y = cy - (cy - y) * (ns / scale); scale = ns; apply();
+  }
+  function open(src, alt) {
+    lastFocus = document.activeElement;
+    img.alt = alt || ""; box.hidden = false; document.body.style.overflow = "hidden";
+    img.onload = fitImage; img.src = src; if (img.complete) fitImage();
+    box.querySelector('[data-zoom="close"]').focus();
+  }
+  function close() { box.hidden = true; document.body.style.overflow = ""; if (lastFocus) lastFocus.focus(); }
+  document.querySelectorAll("figure.zoomable").forEach((f) => {
+    f.tabIndex = 0; f.setAttribute("role", "button");
+    const go = () => { const im = [...f.querySelectorAll("img")].find((i) => i.offsetParent !== null) || f.querySelector("img"); open(im.currentSrc || im.src, im.alt); };
+    f.addEventListener("click", go);
+    f.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+  box.querySelectorAll("[data-zoom]").forEach((b) => b.addEventListener("click", () => {
+    const c = { x: stage.clientWidth / 2, y: stage.clientHeight / 2 }, k = b.dataset.zoom;
+    if (k === "in") zoomAt(1.4, c.x, c.y); else if (k === "out") zoomAt(1 / 1.4, c.x, c.y); else if (k === "reset") fitImage(); else close();
+  }));
+  stage.addEventListener("wheel", (e) => { e.preventDefault(); const r = stage.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+  stage.addEventListener("pointerdown", (e) => {
+    stage.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) }; drag = null; }
+    else { drag = { sx: e.clientX - x, sy: e.clientY - y }; stage.classList.add("dragging"); }
+  });
+  stage.addEventListener("pointermove", (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pinch && pointers.size === 2) {
+      const [a, b] = [...pointers.values()], d = Math.hypot(a.x - b.x, a.y - b.y), r = stage.getBoundingClientRect();
+      zoomAt(d / pinch.d, (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top); pinch.d = d;
+    } else if (drag) { x = e.clientX - drag.sx; y = e.clientY - drag.sy; apply(); }
+  });
+  const end = (e) => { pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null; if (!pointers.size) { drag = null; stage.classList.remove("dragging"); } };
+  stage.addEventListener("pointerup", end); stage.addEventListener("pointercancel", end);
+  stage.addEventListener("dblclick", (e) => { const r = stage.getBoundingClientRect(); zoomAt(2, e.clientX - r.left, e.clientY - r.top); });
+  document.addEventListener("keydown", (e) => { if (box.hidden) return; if (e.key === "Escape") close(); if (e.key === "+" || e.key === "=") zoomAt(1.4, stage.clientWidth / 2, stage.clientHeight / 2); if (e.key === "-") zoomAt(1 / 1.4, stage.clientWidth / 2, stage.clientHeight / 2); });
+  window.addEventListener("resize", () => { if (!box.hidden) fitImage(); });
 })();
 
 </script>

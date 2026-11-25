@@ -923,6 +923,46 @@ canvas.datablock { opacity: .75; filter: none; }
 .featured-body .tagline, .card-body .tagline, .p-hero .tagline { color: var(--text); }
 .item .type { color: var(--muted); border-color: var(--line-strong); }
 .item .type.shared { color: var(--text); border-color: var(--red); }
+/* show the whole OniJack key art instead of a zoomed crop */
+.featured-media { isolation: isolate; }
+.featured-media img.backdrop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(22px) brightness(.4) saturate(.8); transform: scale(1.15); }
+.featured-media img.fit { position: relative; object-fit: contain; width: 100%; height: 100%; padding: 36px; filter: contrast(1.05) brightness(.95); box-sizing: border-box; }
+.featured-media img.fit { image-rendering: auto; }
+.featured:hover .featured-media img.fit { transform: none; }
+.featured:hover .featured-media img.backdrop { filter: blur(22px) brightness(.45) saturate(.9); transform: scale(1.15); }
+
+/* ---------- v16: bilingual images, zoomable figures, jam → Steam ---------- */
+html[lang="es"] .only-en, html:not([lang="es"]) .only-es { display: none !important; }
+.fig-intro { margin-top: 26px; }
+figure.zoomable { margin: 18px 0 8px; cursor: zoom-in; border: 1px solid var(--line-strong); background: #0c0b0b; position: relative; }
+figure.zoomable img { width: 100%; height: auto; display: block; transition: opacity .2s; }
+figure.zoomable:hover { border-color: var(--red); }
+figure.zoomable:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; }
+figure.zoomable figcaption { position: absolute; right: 10px; bottom: 10px; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
+  background: rgba(12,11,11,.88); border: 1px solid var(--line-strong); color: var(--text); padding: 4px 10px; }
+figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-bright); }
+.zoom-ico { color: var(--red-bright); }
+
+.fromto { display: grid; grid-template-columns: 1fr auto 1.4fr; gap: 16px; align-items: stretch; margin-top: 8px; }
+.ft-col { padding: 18px 20px; border: 1px solid var(--line-strong); background: var(--surface); }
+.ft-col small { display: block; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.ft-col p { margin: 0 !important; color: var(--text) !important; font-size: 1rem !important; }
+.ft-col.now { border-color: var(--red); }
+.ft-col.now small { color: var(--red-bright); }
+.ft-arrow { align-self: center; color: var(--red-bright); font-size: 1.6rem; }
+@media (max-width: 760px) { .fromto { grid-template-columns: 1fr; } .ft-arrow { transform: rotate(90deg); justify-self: center; } }
+
+.lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(8,7,7,.96); display: flex; flex-direction: column; }
+.lightbox[hidden] { display: none; }
+.lb-stage { flex: 1; overflow: hidden; position: relative; cursor: grab; touch-action: none; }
+.lb-stage.dragging { cursor: grabbing; }
+.lb-stage img { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; user-select: none; -webkit-user-drag: none; }
+.lb-tools { position: absolute; top: 16px; right: 16px; display: flex; gap: 8px; }
+.lb-tools button { width: 44px; height: 44px; background: rgba(21,20,20,.95); border: 1px solid var(--line-strong); color: var(--text); font: inherit; font-size: 1.1rem; cursor: pointer; }
+.lb-tools button:hover, .lb-tools button:focus-visible { border-color: var(--red); color: var(--red-bright); outline: none; }
+.lb-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: .85rem; color: var(--muted); background: rgba(12,11,11,.85); padding: 4px 12px; border: 1px solid var(--line); white-space: nowrap; }
+@media (max-width: 760px) { .lb-hint { display: none; } }
+.why p strong { color: var(--red-bright) !important; }
 
 </style>
 </head>
@@ -1011,6 +1051,14 @@ canvas.datablock { opacity: .75; filter: none; }
           <li><span data-es="Definí el feedback y la experiencia del jugador">Defined feedback and player experience</span>
             <em data-es="Indicaciones de VFX y sonido, claridad de la interfaz, reglas justas y logros.">VFX and audio direction, UI readability, fair rules and achievements.</em></li>
         </ul>
+        <h3 data-es="De la jam a Steam">From the jam to Steam</h3>
+        <div class="fromto">
+          <div class="ft-col"><small data-es="En la jam">At the jam</small>
+            <p data-es="Una partida infinita contra un único oni que solo cambiaba de máscara al ir pasando rondas.">An endless run against a single oni who only swapped masks as the rounds went by.</p></div>
+          <div class="ft-arrow" aria-hidden="true">→</div>
+          <div class="ft-col now"><small data-es="Ahora">Now</small>
+            <p data-es="La partida se divide en etapas, con jefes y paradas en una tienda para comprar mejoras. El objetivo: dar al jugador sensación de progresión, desafío y rejugabilidad. Cada parte se explica en detalle más abajo.">The run is split into stages, with bosses and shop stops to buy upgrades, to give players a sense of progression, challenge and replayability. Each part is broken down below.</p></div>
+        </div>
       </div>
     </div>
 
@@ -1051,7 +1099,7 @@ canvas.datablock { opacity: .75; filter: none; }
           <li data-es="<strong>Codicia:</strong> ambos roban 2 cartas en lugar de 1."><strong>Greed:</strong> both sides draw 2 cards instead of 1.</li>
           <li data-es="<strong>Pacto sellado:</strong> si usas un objeto, ya no puedes robar más cartas."><strong>Sealed Pact:</strong> if you use an item, you can't draw any more cards.</li>
         </ul>
-        <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: run structure + cursed rounds --></div>
+        <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: run structure + cursed rounds --><p data-es="<strong>Etapas.</strong> Dividir la partida en etapas le dio al proyecto un rumbo más lineal. Al poder progresar, el jugador se siente más atraído a avanzar: quiere descubrir qué mejoras de objetos y qué combos puede conseguir, y enfrentarse al desafío de cada jefe."><strong>Stages.</strong> Splitting the run into stages gave the project a more linear direction. Because they can progress, players feel pulled forward: they want to discover which item upgrades and combos they can unlock, and to face each boss’s challenge.</p><p data-es="<strong>Ganar varias veces al jefe.</strong> Con una sola ronda, el jugador casi no tenía tiempo de vivir esas batallas. Exigir varias victorias lo soluciona y, además, me permitió añadir dificultad extra dando varias fases a ciertos jefes."><strong>Beating a boss more than once.</strong> With a single round, players barely had time to experience those fights. Requiring several wins fixes that, and it also let me add extra difficulty by giving some bosses several phases.</p><p data-es="<strong>Rondas malditas.</strong> Añaden dificultad y eventos que evitan que las rondas se vuelvan repetitivas en las últimas etapas."><strong>Cursed rounds.</strong> They add difficulty and events that keep rounds from becoming repetitive in the later stages.</p></div>
       </div>
     </div>
 
@@ -1093,7 +1141,7 @@ canvas.datablock { opacity: .75; filter: none; }
           <h4 data-es="3 jefes más">3 more bosses</h4>
           <p class="muted" style="margin:0" data-es="Hay otros 3 jefes que se revelarán con el lanzamiento del juego.">There are 3 more bosses — they'll be revealed when the game launches.</p>
         </div>
-        <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: bosses --></div>
+        <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: bosses --><p data-es="Diseñé cada jefe para obligar al jugador a adaptarse. Ninguno le permite depender de una combinación concreta de objetos, y algunos le obligan a cambiar por completo su estilo de juego.">Every boss is designed to force the player to adapt. None of them lets you rely on one specific item combination, and some make you change your whole play style.</p></div>
       </div>
     </div>
 
@@ -1121,6 +1169,12 @@ canvas.datablock { opacity: .75; filter: none; }
             </tbody>
           </table>
         </div>
+        <p class="fig-intro" data-es="Construí un modelo en hoja de cálculo para comprobar cuántas mejoras puede comprar cada tipo de jugador por etapa:">I built a spreadsheet model to check how many upgrades each kind of player can afford per stage:</p>
+        <figure class="zoomable reveal">
+          <img class="only-en" src="onijack-economy-en.jpg" alt="OniJack economy model: rewards, prices, player profiles and yen saved per shop" loading="lazy" />
+          <img class="only-es" src="onijack-economy-es.jpg" alt="Modelo de economía de OniJack: recompensas, precios, perfiles de jugador y yenes por tienda" loading="lazy" />
+          <figcaption><span class="zoom-ico" aria-hidden="true">⤢</span> <span data-es="Haz clic para ampliar">Click to zoom</span></figcaption>
+        </figure>
         <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: economy --></div>
       </div>
     </div>
@@ -1131,6 +1185,13 @@ canvas.datablock { opacity: .75; filter: none; }
       <div class="case-body">
         <p data-es="16 objetos en dos familias: <strong>exclusivos del jugador</strong> y <strong>compartidos</strong> (el oni también los usa). La mayoría tiene hasta 3 niveles de mejora.">
           16 items in two families: <strong>player-only</strong> and <strong>shared</strong> (the oni uses them too). Most have up to 3 upgrade levels.</p>
+        <h3 data-es="El sistema completo">The whole system</h3>
+        <figure class="zoomable reveal">
+          <img class="only-en" src="onijack-items-en.jpg" alt="Diagram of OniJack’s 16 items: where each one steps in, its upgrades and which items counter others" loading="lazy" />
+          <img class="only-es" src="onijack-items-es.jpg" alt="Diagrama de los 16 objetos de OniJack: dónde actúa cada uno, sus mejoras y qué objetos contrarrestan a otros" loading="lazy" />
+          <figcaption><span class="zoom-ico" aria-hidden="true">⤢</span> <span data-es="Haz clic para ampliar">Click to zoom</span></figcaption>
+        </figure>
+        <h3 data-es="Cada objeto">Item by item</h3>
         <div class="items">
           <div class="item">
             <div class="item-head"><h4>Parry</h4><span class="type" data-es="Jugador">Player</span></div>
@@ -1221,6 +1282,12 @@ canvas.datablock { opacity: .75; filter: none; }
       <div class="case-body">
         <p data-es="El oni siempre evalúa su jugada teniendo en cuenta el <strong>límite activo (21, 27 o 33)</strong> y su puntuación real. Definí reglas de uso para cada objeto:">
           The oni always evaluates its play against the <strong>active limit (21, 27 or 33)</strong> and its real score. I defined usage rules for every item:</p>
+        <figure class="zoomable reveal">
+          <img class="only-en" src="onijack-ai-en.jpg" alt="Decision tree of the oni AI: reactions to the player and the oni’s own turn" loading="lazy" />
+          <img class="only-es" src="onijack-ai-es.jpg" alt="Árbol de decisión de la IA del oni: reacciones al jugador y turno del oni" loading="lazy" />
+          <figcaption><span class="zoom-ico" aria-hidden="true">⤢</span> <span data-es="Haz clic para ampliar">Click to zoom</span></figcaption>
+        </figure>
+        <h3 data-es="Reglas por objeto">Rules per item</h3>
         <div class="ai-grid">
           <div class="ai"><strong data-es="Bálsamo de Fuerza">Strength Balm</strong><span data-es="Lo usa con <code>16–19</code> puntos (<code>22–25</code> con Báscula). Si acumula 2 o 3, los gasta a puntuación media.">Used at <code>16–19</code> points (<code>22–25</code> with the Scale). With 2–3 stacked, spends them at a mid score.</span></div>
           <div class="ai"><strong data-es="Bálsamo de Debilidad">Weakness Balm</strong><span data-es="Lo usa con <code>22–24</code> puntos (<code>28–30</code> con Báscula).">Used at <code>22–24</code> points (<code>28–30</code> with the Scale).</span></div>
@@ -1264,7 +1331,7 @@ canvas.datablock { opacity: .75; filter: none; }
           <span data-es="Cadenas de supresión">Suppression Chains</span>
           <span>ONIguiri</span>
         </div>
-        <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: readability --></div>
+        <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: readability --><p data-es="Decidí permitir usar objetos aunque el jugador se haya pasado porque remontar resulta muy satisfactorio: salvar una ronda que parecía perdida, ya sea haciendo que el oni se pase más o rescatándote con un objeto en el momento crítico.">I let players use items even after they bust because a comeback feels great: saving a round that looked lost, either by making the oni bust harder or by rescuing yourself with an item at the critical moment.</p></div>
       </div>
     </div>
 
@@ -1285,6 +1352,17 @@ canvas.datablock { opacity: .75; filter: none; }
       <strong>Felp Wanted</strong>
     </a>
   </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+    <div class="lb-stage"><img alt="" /></div>
+    <div class="lb-tools">
+      <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-zoom="out" aria-label="Zoom out">−</button>
+      <button type="button" data-zoom="reset" aria-label="Fit to screen">1:1</button>
+      <button type="button" data-zoom="close" aria-label="Close">✕</button>
+    </div>
+    <p class="lb-hint" data-es="Rueda o botones para hacer zoom · arrastra para moverte · Esc para cerrar">Scroll or use the buttons to zoom · drag to move · Esc to close</p>
+  </div>
 
   <footer style="margin-top:80px">
     <div class="container">
@@ -1377,6 +1455,60 @@ document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new D
   blocks.forEach(draw);
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!calm) setInterval(() => { const cv = blocks[Math.floor(Math.random() * blocks.length)]; draw(cv); }, 1400);
+})();
+
+// ===== Zoomable images (lightbox with zoom + pan) =====
+(function () {
+  const box = document.getElementById("lightbox");
+  if (!box) return;
+  const stage = box.querySelector(".lb-stage"), img = stage.querySelector("img");
+  let scale = 1, fit = 1, x = 0, y = 0, drag = null, lastFocus = null;
+  const pointers = new Map(); let pinch = null;
+  function apply() { img.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
+  function fitImage() {
+    const W = stage.clientWidth, H = stage.clientHeight, w = img.naturalWidth, h = img.naturalHeight;
+    fit = Math.min(W / w, H / h) * 0.96; scale = fit; x = (W - w * scale) / 2; y = (H - h * scale) / 2; apply();
+  }
+  function zoomAt(factor, cx, cy) {
+    const ns = Math.min(Math.max(scale * factor, fit * 0.8), fit * 8);
+    x = cx - (cx - x) * (ns / scale); y = cy - (cy - y) * (ns / scale); scale = ns; apply();
+  }
+  function open(src, alt) {
+    lastFocus = document.activeElement;
+    img.alt = alt || ""; box.hidden = false; document.body.style.overflow = "hidden";
+    img.onload = fitImage; img.src = src; if (img.complete) fitImage();
+    box.querySelector('[data-zoom="close"]').focus();
+  }
+  function close() { box.hidden = true; document.body.style.overflow = ""; if (lastFocus) lastFocus.focus(); }
+  document.querySelectorAll("figure.zoomable").forEach((f) => {
+    f.tabIndex = 0; f.setAttribute("role", "button");
+    const go = () => { const im = [...f.querySelectorAll("img")].find((i) => i.offsetParent !== null) || f.querySelector("img"); open(im.currentSrc || im.src, im.alt); };
+    f.addEventListener("click", go);
+    f.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+  box.querySelectorAll("[data-zoom]").forEach((b) => b.addEventListener("click", () => {
+    const c = { x: stage.clientWidth / 2, y: stage.clientHeight / 2 }, k = b.dataset.zoom;
+    if (k === "in") zoomAt(1.4, c.x, c.y); else if (k === "out") zoomAt(1 / 1.4, c.x, c.y); else if (k === "reset") fitImage(); else close();
+  }));
+  stage.addEventListener("wheel", (e) => { e.preventDefault(); const r = stage.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+  stage.addEventListener("pointerdown", (e) => {
+    stage.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) }; drag = null; }
+    else { drag = { sx: e.clientX - x, sy: e.clientY - y }; stage.classList.add("dragging"); }
+  });
+  stage.addEventListener("pointermove", (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pinch && pointers.size === 2) {
+      const [a, b] = [...pointers.values()], d = Math.hypot(a.x - b.x, a.y - b.y), r = stage.getBoundingClientRect();
+      zoomAt(d / pinch.d, (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top); pinch.d = d;
+    } else if (drag) { x = e.clientX - drag.sx; y = e.clientY - drag.sy; apply(); }
+  });
+  const end = (e) => { pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null; if (!pointers.size) { drag = null; stage.classList.remove("dragging"); } };
+  stage.addEventListener("pointerup", end); stage.addEventListener("pointercancel", end);
+  stage.addEventListener("dblclick", (e) => { const r = stage.getBoundingClientRect(); zoomAt(2, e.clientX - r.left, e.clientY - r.top); });
+  document.addEventListener("keydown", (e) => { if (box.hidden) return; if (e.key === "Escape") close(); if (e.key === "+" || e.key === "=") zoomAt(1.4, stage.clientWidth / 2, stage.clientHeight / 2); if (e.key === "-") zoomAt(1 / 1.4, stage.clientWidth / 2, stage.clientHeight / 2); });
+  window.addEventListener("resize", () => { if (!box.hidden) fitImage(); });
 })();
 
 </script>
