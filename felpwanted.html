@@ -963,6 +963,15 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
 @media (max-width: 760px) { .lb-hint { display: none; } }
 .why p strong { color: var(--red-bright) !important; }
 
+
+/* ---------- v17: documents diagram ---------- */
+.diagram-legend { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 18px 0 4px; font-size: .88rem; color: var(--muted); }
+.diagram-legend > span { display: inline-flex; align-items: center; gap: 8px; }
+.diagram-legend i { width: 14px; height: 14px; display: inline-block; border-radius: 2px; }
+.diagram-legend i.line { height: 3px; width: 22px; border-radius: 0; background: #ff751f; }
+figure.zoomable.diagram { background: #100d0d; }
+figure.zoomable.diagram img { aspect-ratio: 16 / 9; }
+.diagram-note { font-size: .85rem; color: var(--muted); margin-top: 6px !important; }
 </style>
 </head>
 <body>
@@ -1107,6 +1116,21 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
           <li data-es="<strong>Discrepancias:</strong> diferencias entre el modelo 3D y la foto, rasgos corroídos o inhumanos, o papeles absurdos como cartones o folletos.">
             <strong>Discrepancies:</strong> differences between the 3D model and the photo, corroded or inhuman features, or absurd papers like cardboard or flyers.</li>
         </ul>
+        <h3 data-es="Mapa de documentos y objetos">Documents &amp; items map</h3>
+        <p class="fig-intro" data-es="Diseñé este diagrama para reunir todo lo que puede entregar cada tipo de personaje (solicitante, trabajador y paquetería): qué es obligatorio y qué es extra, qué datos pueden estar bien o mal y qué información es solo relleno.">
+          I built this diagram to map everything each character type (applicant, worker and delivery) can hand over: what's mandatory and what's extra, which fields can be right or wrong, and which information is just filler.</p>
+        <div class="diagram-legend" aria-label="Legend">
+          <span><i style="background:#5ce1e6"></i><span data-es="Documento">Document</span></span>
+          <span><i style="background:#c1ff72"></i><span data-es="Correcto">Correct</span></span>
+          <span><i style="background:#ff5757"></i><span data-es="Incorrecto">Incorrect</span></span>
+          <span><i style="background:#ffde59"></i><span data-es="Irrelevante">Irrelevant</span></span>
+          <span><i class="line"></i><span data-es="Relevante solo ciertos días">Relevant only on specific days</span></span>
+        </div>
+        <figure class="zoomable diagram reveal">
+          <img src="felpwanted-documents-diagram.svg" alt="Felp Wanted documents diagram: what applicants, workers and delivery characters hand over, which data can be correct or incorrect, and what is irrelevant" loading="lazy" />
+          <figcaption><span class="zoom-ico" aria-hidden="true">⤢</span> <span data-es="Haz clic para ampliar">Click to zoom</span></figcaption>
+        </figure>
+        <p class="diagram-note only-en">The original diagram is in Spanish.</p>
         <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: documents --></div>
       </div>
     </div>
@@ -1147,7 +1171,18 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
       <a href="mailto:munozmunozdiego05@gmail.com">munozmunozdiego05@gmail.com</a>
     </div>
   </footer>
-  <script>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+    <div class="lb-stage"><img alt="" /></div>
+    <div class="lb-tools">
+      <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-zoom="out" aria-label="Zoom out">−</button>
+      <button type="button" data-zoom="reset" aria-label="Fit to screen">1:1</button>
+      <button type="button" data-zoom="close" aria-label="Close">✕</button>
+    </div>
+    <p class="lb-hint" data-es="Rueda o botones para hacer zoom · arrastra para moverte · Esc para cerrar">Scroll or use the buttons to zoom · drag to move · Esc to close</p>
+  </div>
+
+<script>
 
 // ===== Language switch (EN / ES) =====
 // Any element with a data-es attribute is translatable.
@@ -1247,7 +1282,7 @@ document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new D
     fit = Math.min(W / w, H / h) * 0.96; scale = fit; x = (W - w * scale) / 2; y = (H - h * scale) / 2; apply();
   }
   function zoomAt(factor, cx, cy) {
-    const ns = Math.min(Math.max(scale * factor, fit * 0.8), fit * 8);
+    const ns = Math.min(Math.max(scale * factor, fit * 0.8), Math.max(fit * 8, 1.5));
     x = cx - (cx - x) * (ns / scale); y = cy - (cy - y) * (ns / scale); scale = ns; apply();
   }
   function open(src, alt) {

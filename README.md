@@ -2,4 +2,4 @@
 
 Portfolio web: https://shimadita.github.io
 
-Projects: OniJack, Lobstar, Jets.
+Projects: OniJack, Felp Wanted, Lobstar, Jets.
