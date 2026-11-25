@@ -966,6 +966,27 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
 @media (max-width: 760px) { .lb-hint { display: none; } }
 .why p strong { color: var(--red-bright) !important; }
 
+
+/* ---------- About v17: centered intro → pillars → skills ---------- */
+#about .about-intro { max-width: 760px; margin: 0 auto; text-align: center; }
+#about .about-intro p:last-child { margin-bottom: 0; }
+#about .about-subhead {
+  font-family: var(--font-body); font-weight: normal; text-transform: uppercase;
+  letter-spacing: .22em; font-size: .95rem; color: var(--red-bright);
+  text-align: center; margin: 64px 0 24px;
+}
+#about .about-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+#about .pillar-card { grid-template-columns: 1fr; gap: 14px; padding: 24px; }
+#about .pillar-card .pillar-lead { color: var(--text); margin-bottom: 10px; }
+#about .pillar-card p { line-height: 1.55; }
+#about .about-skills {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px;
+}
+#about .about-skills h4 { margin-top: 0; }
+@media (max-width: 900px) {
+  #about .about-pillars, #about .about-skills { grid-template-columns: 1fr; }
+  #about .about-skills { gap: 26px; }
+}
 </style>
 </head>
 <body>
@@ -1145,35 +1166,42 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
         </div>
       </div>
 
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <p data-es="Soy <strong>Diego Muñoz</strong>, game designer de Valencia, España, y estudiante de Game and Interactive Media Design en <strong>Florida Universitària</strong>.">
-            I'm <strong>Diego Muñoz</strong>, a game designer from Valencia, Spain, studying Game and Interactive Media Design at <strong>Florida Universitària</strong>.</p>
-          <p data-es="Como diseñador generalista entiendo el desarrollo desde una visión global, pero lo que de verdad me apasiona es diseñar encuentros, sistemas y niveles. Tengo un perfil analítico: me gusta documentar, medir y equilibrar hasta que la experiencia funciona.">
-            As a generalist I understand development from a global perspective, but my real passion is designing encounters, systems and levels. I have an analytical, problem-solving mindset: I like to document, measure and balance until the experience clicks.</p>
-          <p data-es="Busco mi primera oportunidad profesional en un estudio donde pueda aportar mi visión, seguir aprendiendo el oficio y ayudar a crear juegos memorables junto a un equipo colaborativo.">
-            I'm looking for my first professional opportunity at a studio where I can bring my vision, keep growing in the craft and help create memorable games alongside a collaborative team.</p>
+      <!-- Intro: centered -->
+      <div class="about-intro about-text reveal">
+        <p data-es="Soy <strong>Diego Muñoz</strong>, game designer de Valencia, España, y estudiante de Game and Interactive Media Design en <strong>Florida Universitària</strong>.">
+          I'm <strong>Diego Muñoz</strong>, a game designer from Valencia, Spain, studying Game and Interactive Media Design at <strong>Florida Universitària</strong>.</p>
+        <p data-es="Como diseñador generalista entiendo el desarrollo desde una visión global, pero lo que de verdad me apasiona es diseñar encuentros, sistemas y niveles. Tengo un perfil analítico: me gusta documentar, medir y equilibrar hasta que la experiencia funciona.">
+          As a generalist I understand development from a global perspective, but my real passion is designing encounters, systems and levels. I have an analytical, problem-solving mindset: I like to document, measure and balance until the experience clicks.</p>
+        <p data-es="Busco mi primera oportunidad profesional en un estudio donde pueda aportar mi visión, seguir aprendiendo el oficio y ayudar a crear juegos memorables junto a un equipo colaborativo.">
+          I'm looking for my first professional opportunity at a studio where I can bring my vision, keep growing in the craft and help create memorable games alongside a collaborative team.</p>
+      </div>
 
-          <div class="focus-list">
-            <div class="focus">
-              <div class="focus-icon">01</div>
-              <div><h4 data-es="Combate">Combat</h4>
-                <p data-es="Encuentros dinámicos y únicos, con ritmo, tensión y decisiones claras.">Dynamic, unique encounters with pacing, tension and clear decisions.</p></div>
-            </div>
-            <div class="focus">
-              <div class="focus-icon">02</div>
-              <div><h4 data-es="Sistemas">Systems</h4>
-                <p data-es="La lógica y las matemáticas de fondo: economías, curvas de dificultad y balance.">The underlying logic and math: economies, difficulty curves and balancing.</p></div>
-            </div>
-            <div class="focus">
-              <div class="focus-icon">03</div>
-              <div><h4 data-es="Diseño de niveles">Level Design</h4>
-                <p data-es="Greyboxing y blockout de espacios que guían al jugador con fluidez.">Greyboxing and blockouts of spaces that guide the player fluidly.</p></div>
-            </div>
-          </div>
+      <!-- Design pillars -->
+      <h3 class="about-subhead reveal" data-es="Mis 3 pilares de diseño">My 3 design pillars</h3>
+      <div class="about-pillars">
+        <div class="focus pillar-card reveal">
+          <div class="focus-icon">01</div>
+          <div><h4 data-es="Combate">Combat</h4>
+            <p class="pillar-lead" data-es="Encuentros dinámicos y únicos, con ritmo, tensión y decisiones claras.">Dynamic, unique encounters with pacing, tension and clear decisions.</p>
+            <p data-es="Diseño enemigos y encuentros con patrones legibles, construyo momentos de tensión y respiro a lo largo de cada pelea y me aseguro de que cada decisión del jugador tenga una consecuencia visible.">I design enemies and encounters around readable patterns, build tension and release across each fight, and make sure every player decision has a visible consequence.</p></div>
         </div>
+        <div class="focus pillar-card reveal">
+          <div class="focus-icon">02</div>
+          <div><h4 data-es="Sistemas">Systems</h4>
+            <p class="pillar-lead" data-es="La lógica y las matemáticas de fondo: economías, curvas de dificultad y balance.">The underlying logic and math: economies, difficulty curves and balancing.</p>
+            <p data-es="Modelo economías, progresión y dificultad en hojas de cálculo, las pruebo con números reales e itero hasta que cada recurso y cada recompensa tienen peso.">I model economies, progression and difficulty in spreadsheets, test them against real numbers and iterate until every resource and reward carries weight.</p></div>
+        </div>
+        <div class="focus pillar-card reveal">
+          <div class="focus-icon">03</div>
+          <div><h4 data-es="Diseño de niveles">Level Design</h4>
+            <p class="pillar-lead" data-es="Greyboxing y blockout de espacios que guían al jugador con fluidez.">Greyboxing and blockouts of spaces that guide the player fluidly.</p>
+            <p data-es="Uso la distribución, las líneas de visión y los puntos de referencia para orientar al jugador sin carteles, y controlo el ritmo entre exploración y acción.">I use layout, sightlines and landmarks to orient the player without signposting, and control the pacing between exploration and action.</p></div>
+        </div>
+      </div>
 
-        <aside class="skills-block reveal">
+      <!-- Skills -->
+      <div class="skills-block about-skills reveal">
+        <div>
           <h4 data-es="Diseño y balance">Design &amp; Balancing</h4>
           <div class="tags">
             <span data-es="Redacción de GDD">GDD writing</span>
@@ -1182,35 +1210,20 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
             <span data-es="Balance de mecánicas">Mechanics balancing</span>
             <span>Excel / Google Sheets</span>
           </div>
-
+        </div>
+        <div>
           <h4 data-es="Niveles">Level Architecture</h4>
           <div class="tags">
             <span>Greyboxing</span><span>Blockout</span><span data-es="Control del ritmo">Pacing control</span>
           </div>
-
+        </div>
+        <div>
           <h4 data-es="Motores y herramientas">Engines &amp; Tools</h4>
           <div class="tags">
             <span>Unity</span><span>Unreal Engine (Blueprints)</span>
             <span>Miro</span><span>Trello</span><span>Jira</span><span>Arduino IDE</span>
           </div>
-
-          <h4 data-es="Idiomas">Languages</h4>
-          <div class="lang-row"><span data-es="Español">Spanish</span><span data-es="Nativo">Native</span></div>
-          <div class="lang-row"><span data-es="Inglés">English</span><span>C1</span></div>
-          <div class="lang-row"><span data-es="Francés">French</span><span>C1</span></div>
-
-          <h4 data-es="Formación">Education</h4>
-          <div class="edu">
-            <div class="focus-icon" style="flex:none">UNI</div>
-            <div><strong>Florida Universitària</strong>
-              <small data-es="Grado en Productos Interactivos y Videojuegos (rama de diseño) · 2022 – 2027">Game and Interactive Media Design (design track) · 2022 – 2027</small></div>
-          </div>
-          <div class="edu" style="margin-top:14px">
-            <div class="focus-icon" style="flex:none">FR</div>
-            <div><strong data-es="Liceo Francés de Valencia">Lycée Français de Valencia</strong>
-              <small data-es="Baccalauréat · especialidad en economía y sociología">Baccalauréat · economics &amp; sociology track</small></div>
-          </div>
-        </aside>
+        </div>
       </div>
     </div>
   </section>
