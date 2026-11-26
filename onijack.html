@@ -964,6 +964,33 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
 @media (max-width: 760px) { .lb-hint { display: none; } }
 .why p strong { color: var(--red-bright) !important; }
 
+
+/* ---------- v22: OWN playtesting ---------- */
+.pt-intro { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 28px; align-items: start; }
+figure.zoomable.pt-photo { margin: 4px 0 0; }
+.pt-source { display: block; margin: 22px 0 10px; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.pt-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.pt-stats > div { padding: 14px 16px; border: 1px solid var(--line-strong); background: var(--surface); }
+.pt-stats b { display: block; font-family: var(--font-display); font-size: 1.7rem; color: var(--text); line-height: 1.1; }
+.pt-stats b i { font-style: normal; font-size: .9rem; color: var(--muted); margin-left: 2px; }
+.pt-stats span { display: block; margin-top: 4px; font-size: .88rem; color: var(--muted); }
+.pt-stats .weak { border-color: var(--red); }
+.pt-stats .weak b { color: var(--red-bright); }
+.pt-table { margin-top: 8px; }
+.pt-table td { vertical-align: top; line-height: 1.5; }
+.pt-table td:first-child { color: var(--muted); width: 50%; }
+.pt-table td:last-child { font-family: inherit; font-weight: normal; color: var(--text); white-space: normal; }
+.pt-table td strong { color: var(--red-bright); font-weight: normal; }
+.price-note { font-size: .88rem; color: var(--muted) !important; margin-top: -4px !important; }
+@media (max-width: 760px) {
+  .pt-intro { grid-template-columns: 1fr; }
+  figure.zoomable.pt-photo { max-width: 340px; }
+  .pt-table, .pt-table tbody, .pt-table tr, .pt-table td { display: block; width: 100% !important; }
+  .pt-table thead { display: none; }
+  .pt-table tr { border-bottom: 1px solid var(--line); }
+  .pt-table td { border-bottom: 0; padding: 10px 16px; }
+  .pt-table td:first-child { padding-bottom: 0; }
+}
 </style>
 </head>
 <body>
@@ -1145,9 +1172,52 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
       </div>
     </div>
 
-    <!-- 05 ECONOMY -->
+    <!-- 05 PLAYTESTING -->
     <div class="case reveal">
-      <div class="case-label"><div class="num">05</div><h2 data-es="Economía y tienda">Economy &amp; shop</h2></div>
+      <div class="case-label"><div class="num">05</div><h2 data-es="Playtesting en la OWN Valencia 2026">Playtesting at Valencia OWN 2026</h2></div>
+      <div class="case-body">
+        <div class="pt-intro">
+          <figure class="zoomable pt-photo">
+            <img src="onijack-own-stand.jpg" alt="The No Room For Thought stand at Valencia OWN 2026, with two laptops running OniJack" loading="lazy" />
+            <figcaption><span class="zoom-ico" aria-hidden="true">⤢</span> <span data-es="Ampliar">Zoom</span></figcaption>
+          </figure>
+          <div>
+            <p data-es="Llevamos OniJack a nuestro stand los tres días de la OWN Valencia 2026, del 3 al 5 de julio. Lo jugaron decenas de personas. Algunas rellenaron un formulario de feedback, aunque la mayor parte de lo que aprendí salió de estar al lado de la mesa viéndoles jugar.">
+              We brought OniJack to our stand on all three days of Valencia OWN 2026, from 3 to 5 July. Dozens of people played it. Some filled in a feedback form, but most of what I learned came from standing next to the table and watching them play.</p>
+            <small class="pt-source" data-es="Resultados del formulario">Feedback form results</small>
+            <div class="pt-stats">
+              <div><b data-es="4,5<i>/5</i>">4.5<i>/5</i></b><span data-es="Disfrute">Enjoyment</span></div>
+              <div><b data-es="4,8<i>/5</i>">4.8<i>/5</i></b><span data-es="Apartado visual">Visuals</span></div>
+              <div><b>80%</b><span data-es="Lo añadiría a deseados en Steam">Would wishlist it on Steam</span></div>
+              <div class="weak"><b data-es="4,0<i>/5</i>">4.0<i>/5</i></b><span data-es="Claridad de reglas y objetos: el punto débil">Clarity of rules and items: the weak spot</span></div>
+            </div>
+          </div>
+        </div>
+        <h3 data-es="Qué cambié">What I changed</h3>
+        <table class="dtable pt-table">
+          <thead><tr><th data-es="Lo que vi">What I saw</th><th data-es="Lo que cambié">What I changed</th></tr></thead>
+          <tbody>
+            <tr><td data-es="Costaba entender las reglas y los objetos. Un tercio de las respuestas puntuó la claridad con un 3 sobre 5.">Rules and items were hard to follow. A third of the form answers rated clarity 3 out of 5.</td>
+                <td data-es="Diseñé un <strong>tutorial</strong> para el juego.">I designed a <strong>tutorial</strong> for the game.</td></tr>
+            <tr><td data-es="Los jugadores no sabían qué podían clicar, y las descripciones de los objetos lejanos o que giran sobre la mesa costaban de leer.">Players didn't know what they could click, and the descriptions of distant or spinning items were hard to read.</td>
+                <td data-es="Nuevos <strong>indicadores de interacción</strong>: VFX que marcan lo que el jugador puede clicar.">New <strong>interaction cues</strong>: VFX that mark what the player can click.</td></tr>
+            <tr><td data-es="La gente perdía el hilo de lo que había pasado en la ronda, sobre todo de lo que había hecho el oni.">People lost track of what had happened in the round, especially what the oni had done.</td>
+                <td data-es="Un <strong>historial de acciones</strong> que el jugador puede abrir para repasar la ronda, también los movimientos del oni.">An <strong>action log</strong> the player can open to review the round, the oni's moves included.</td></tr>
+            <tr><td data-es="En la tienda, una mejora decía poco si aún no habías encontrado ese objeto.">In the shop, an upgrade meant little if you hadn't found that item yet.</td>
+                <td data-es="Un <strong>libro</strong> que desbloquea cada objeto y cada jefe a medida que el jugador los descubre.">A <strong>book</strong> that unlocks each item and boss as the player discovers them.</td></tr>
+            <tr><td data-es="Algunas mejoras eran demasiado fuertes ya en nivel 1 y rompían la partida.">Some upgrades were too strong even at level 1 and broke runs.</td>
+                <td data-es="Subí el <strong>precio de todas las mejoras</strong> (de 20 / 40 / 70 ¥ a 40 / 70 / 90 ¥) y cambié cómo funcionan algunos objetos.">I raised <strong>every upgrade price</strong> (from 20 / 40 / 70 ¥ to 40 / 70 / 90 ¥) and reworked how some items work.</td></tr>
+            <tr><td data-es="Contra el Centinela, donde los dos roban dos cartas, algunos jugadores perdían antes de poder robar una segunda vez.">Against the Sentinel, where both sides draw two cards, some players lost before they could even draw a second time.</td>
+                <td data-es="La regla de <strong>inicio justo</strong>: en ese combate tu primera mano nunca puede ser una derrota instantánea.">The <strong>fair opening</strong> rule: in that fight your first hand can never be an instant loss.</td></tr>
+          </tbody>
+        </table>
+        <div class="why" data-label="Why I designed it this way" data-label-es="Por qué lo diseñé así"><!-- WHY: playtesting --><p data-es="El formulario decía que el juego divertía y gustaba visualmente; lo que fallaba era entenderlo. Por eso casi todos los cambios tratan de información: enseñar las reglas, mostrar qué se puede clicar y dejar que el jugador consulte lo que ha pasado. Los precios y la regla del Centinela los cambié por lo que vi en la mesa, ya que en el formulario apenas salían.">The form said the game was fun and people liked how it looked; what failed was understanding it. That's why almost every change is about information: teaching the rules, showing what can be clicked and letting the player check what happened. The prices and the Sentinel rule I changed because of what I saw at the table, since they barely came up in the form.</p></div>
+      </div>
+    </div>
+
+    <!-- 06 ECONOMY -->
+    <div class="case reveal">
+      <div class="case-label"><div class="num">06</div><h2 data-es="Economía y tienda">Economy &amp; shop</h2></div>
       <div class="case-body">
         <p data-es="Después de la ronda 4 de cada etapa, antes del jefe, siempre llegas a la <strong>sala del vendedor ambulante</strong>: una habitación con 5 almohadones donde comprar mejoras para objetos aleatorios.">
           After round 4 of every stage, before the boss, you always reach the <strong>wandering merchant's room</strong>: a room with 5 cushions where you buy upgrades for random items.</p>
@@ -1169,6 +1239,7 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
             </tbody>
           </table>
         </div>
+        <p class="price-note" data-es="Precios tras el playtesting en la OWN (antes eran 20 / 40 / 70 ¥).">Prices after the OWN playtest (they used to be 20 / 40 / 70 ¥).</p>
         <p class="fig-intro" data-es="Construí un modelo en hoja de cálculo para comprobar cuántas mejoras puede comprar cada tipo de jugador por etapa:">I built a spreadsheet model to check how many upgrades each kind of player can afford per stage:</p>
         <figure class="zoomable reveal">
           <img class="only-en" src="onijack-economy-en.jpg" alt="OniJack economy model: rewards, prices, player profiles and yen saved per shop" loading="lazy" />
@@ -1179,9 +1250,9 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
       </div>
     </div>
 
-    <!-- 06 ITEMS -->
+    <!-- 07 ITEMS -->
     <div class="case reveal">
-      <div class="case-label"><div class="num">06</div><h2 data-es="Objetos">Items</h2></div>
+      <div class="case-label"><div class="num">07</div><h2 data-es="Objetos">Items</h2></div>
       <div class="case-body">
         <p data-es="16 objetos en dos familias: <strong>exclusivos del jugador</strong> y <strong>compartidos</strong> (el oni también los usa). La mayoría tiene hasta 3 niveles de mejora.">
           16 items in two families: <strong>player-only</strong> and <strong>shared</strong> (the oni uses them too). Most have up to 3 upgrade levels.</p>
@@ -1276,9 +1347,9 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
       </div>
     </div>
 
-    <!-- 07 AI -->
+    <!-- 08 AI -->
     <div class="case reveal">
-      <div class="case-label"><div class="num">07</div><h2 data-es="IA del oni">Oni AI</h2></div>
+      <div class="case-label"><div class="num">08</div><h2 data-es="IA del oni">Oni AI</h2></div>
       <div class="case-body">
         <p data-es="El oni siempre evalúa su jugada teniendo en cuenta el <strong>límite activo (21, 27 o 33)</strong> y su puntuación real. Definí reglas de uso para cada objeto:">
           The oni always evaluates its play against the <strong>active limit (21, 27 or 33)</strong> and its real score. I defined usage rules for every item:</p>
@@ -1302,9 +1373,9 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
       </div>
     </div>
 
-    <!-- 08 FEEL & READABILITY -->
+    <!-- 09 FEEL & READABILITY -->
     <div class="case reveal">
-      <div class="case-label"><div class="num">08</div><h2 data-es="Claridad y sensación">Readability &amp; feel</h2></div>
+      <div class="case-label"><div class="num">09</div><h2 data-es="Claridad y sensación">Readability &amp; feel</h2></div>
       <div class="case-body">
         <h3 data-es="Reglas justas">Fair rules</h3>
         <ul class="rules">
@@ -1335,9 +1406,9 @@ figure.zoomable:hover figcaption { border-color: var(--red); color: var(--red-br
       </div>
     </div>
 
-    <!-- 09 GALLERY -->
+    <!-- 10 GALLERY -->
     <div class="case reveal">
-      <div class="case-label"><div class="num">09</div><h2 data-es="Galería">Gallery</h2></div>
+      <div class="case-label"><div class="num">10</div><h2 data-es="Galería">Gallery</h2></div>
       <div class="case-body">
         <div class="gallery">
           <img class="full" src="https://d3stdg5so273ei.cloudfront.net/Diegomunoz/2026-02-14/479897/1400xAUTO/LsZSk_-Diegomunoz-crop.png" alt="OniJack" loading="lazy" />
